@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 
 
 export const prismaService = {
-    async checkUesrRegistered(email: string) {
+    async checkUserRegistered(email: string) {
         return await prisma.user.findFirst({
             where: { email }
         })
@@ -19,4 +19,21 @@ export const prismaService = {
             }
         })
     },
+
+    async authenticateUser(email: string, password: string) {
+        const user = await prisma.user.findFirst({
+            where: { email }
+        });
+
+        if (!user) {
+            return null;
+        }   
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return null;
+        } 
+        
+        return user;
+    }
 }
