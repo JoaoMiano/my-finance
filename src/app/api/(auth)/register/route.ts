@@ -3,21 +3,15 @@ import { prismaService } from "@/services/prismaServices";
 
 export const POST = async (req: Request) => {
 
-    //validando o metodo
-    if (req.method !== "POST") {
-        return new Response(JSON.stringify({
-            error: "Método não permitido",
-        }), { status: 405 });
-    }
-
     //validando se o body esta vazio
-    if (!req.body) {
+    let body
+    try {
+        body = await req.json();
+    } catch {
         return new Response(JSON.stringify({
-            error: "Corpo da requisição está vazio",
+            error: "Corpo da requisição está vazio ou inválido",
         }), { status: 400 });
     }
-
-    const body = await req.json();
 
     //Vaidando se o body esta coerreto
     const result = registerSchema.safeParse(body);
