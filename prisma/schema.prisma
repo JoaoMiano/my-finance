@@ -24,6 +24,7 @@ model Transaction {
   date        DateTime    @default(now())
   type        TransactionType
   category    String
+  description String?
 
 
   // relacionamento
