@@ -13,8 +13,18 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
+import { useState } from "react";
+import Loading from "../Loading";
+import { toast } from "sonner";
+import { useAuth } from "@/context/authContext";
+import { useRouter } from "next/navigation";
 
 export function LoginForm() {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const { login } = useAuth();
+
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -23,15 +33,40 @@ export function LoginForm() {
     },
   });
 
-  function onSubmit(values: LoginSchema) {
-    console.log("LOGIN:", values);
-    // aqui você chama login() do AuthContext
-  }
+  const onSubmit = async (values: LoginSchema) => {
+    try {
+      setIsLoading(true);
+
+      const { email, password } = values;
+      email.toLowerCase();
+
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
+
+      toast.success(data.message || "Login realizado com sucesso!");
+      login(data.user);
+
+      router.push("app");
+    } catch (error: any) {
+      toast.error(error.message || "Erro ao fazer login. Tente novamente.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        
+
         <FormField
           control={form.control}
           name="email"
@@ -39,7 +74,7 @@ export function LoginForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="Seu email" {...field} />
+                <Input type="email" placeholder="Seu email" {...field} disabled={isLoading} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -53,16 +88,22 @@ export function LoginForm() {
             <FormItem>
               <FormLabel>Senha</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Sua senha" {...field} />
+                <Input type="password" placeholder="Sua senha" {...field} disabled={isLoading} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button type="submit" className="w-full bg-green-700 hover:bg-green-800">
+        <Button
+          type="submit"
+          className="w-full bg-green-700 hover:bg-green-800"
+          disabled={isLoading}
+        >
           Entrar
         </Button>
+
+        {isLoading && <Loading />}
       </form>
     </Form>
   );
