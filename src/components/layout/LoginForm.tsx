@@ -58,6 +58,7 @@ export function LoginForm() {
       router.push("app");
     } catch (error: any) {
       toast.error(error.message || "Erro ao fazer login. Tente novamente.");
+      console.error("Login error:", error);
     } finally {
       setIsLoading(false);
     }

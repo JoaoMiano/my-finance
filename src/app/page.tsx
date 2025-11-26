@@ -12,7 +12,7 @@ export const App = () => {
 
       {/* imagem de fundo */}
       <img
-        src="/background.jpg"
+        src="/images/background.jpg"
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover opacity-60"
         style={{ objectPosition: "center" }}
@@ -20,7 +20,7 @@ export const App = () => {
 
       {/* centro da tela */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full gap-6">
-        <Logo />
+        <Logo size="lg" variant="vertical"/>
 
         <Card className="w-full max-w-sm backdrop-blur  bg-white/80 shadow-xl">
           <CardHeader className="text-center">

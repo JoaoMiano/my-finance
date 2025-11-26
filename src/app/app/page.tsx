@@ -1,5 +1,13 @@
+import Navbar from "@/components/layout/navbar";
+
+
 const App = () => {
-  return <div>My Finance App</div>;
+  return (
+    <main>
+      <Navbar />
+    </main>
+  )
+
 }
 
 export default App;

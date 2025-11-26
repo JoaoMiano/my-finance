@@ -6,6 +6,7 @@ export const validateToken = (token: string | undefined) => {
     }
 
     const userId = verifyJWT(token);
+    console.log("UserId validateToken:"+userId+" token:"+token)
 
     if (!userId) {
         throw new Error("TOKEN_INVALID");
