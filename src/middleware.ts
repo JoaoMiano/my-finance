@@ -20,7 +20,6 @@ export function middleware(request: NextRequest) {
     const publicRoute = "/"
     const privateRoute = "/app"
     const token = request.cookies.get("token")?.value
-    console.log("Token midd:"+token)
 
     //nao autenticado tentando acessar rota publica
     if (!token && pathname === publicRoute) {

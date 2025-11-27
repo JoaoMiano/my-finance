@@ -8,7 +8,9 @@ export const IncomeCategoryEnum = z.enum([
   "BONUS",
   "FREELANCE",
   "OUTROS"
-]);
+], {
+  error: "Categoria de entrada inválida"
+});
 
 export const ExpenseCategoryEnum = z.enum([
   "ALIMENTACAO",
@@ -19,7 +21,9 @@ export const ExpenseCategoryEnum = z.enum([
   "MORADIA",
   "PESSOAL",
   "OUTROS"
-]);
+], {
+  error: "Categoria de saida inválida"
+});
 
 export const TransactionSchema = z.discriminatedUnion("type", [
   z.object({
@@ -37,4 +41,23 @@ export const TransactionSchema = z.discriminatedUnion("type", [
     description: z.string().max(255).optional(),
   }),
 ]);
-export type TransactionSchema = z.infer<typeof TransactionSchema>;
+export type TransactionType = z.infer<typeof TransactionSchema>;
+
+export const IncomeCategoryLabels = {
+  SALARIO: "Salário",
+  INVESTIMENTOS: "Investimentos",
+  BONUS: "Bônus",
+  FREELANCE: "Freelance",
+  OUTROS: "Outros"
+};
+
+export const ExpenseCategoryLabels = {
+  ALIMENTACAO: "Alimentação",
+  SAUDE: "Saúde",
+  TRANSPORTE: "Transporte",
+  LAZER: "Lazer",
+  EDUCACAO: "Educação",
+  MORADIA: "Moradia",
+  PESSOAL: "Pessoal",
+  OUTROS: "Outros"
+};
