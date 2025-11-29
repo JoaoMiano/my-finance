@@ -33,6 +33,9 @@ import {
     SelectContent,
     SelectItem,
 } from "@/components/ui/select";
+import { useAuth } from "@/context/authContext";
+import { toast } from "sonner";
+import Loading from "../Loading";
 
 
 const NewTransitionForm = () => {
@@ -40,6 +43,8 @@ const NewTransitionForm = () => {
 
     const incomeCategoryList = IncomeCategoryEnum.options;
     const expenseCategoryList = ExpenseCategoryEnum.options;
+
+    const { user } = useAuth()
 
 
     const form = useForm<TransactionType>({
@@ -50,20 +55,47 @@ const NewTransitionForm = () => {
             category: "SALARIO",
             date: new Date().toISOString().split("T")[0],
             description: "",
-        },
+        }
     });
 
-    const onSubmit = async (data: TransactionType) => {
+    const onSubmit = async (values: TransactionType) => {
         setIsLoading(true);
 
         try {
-            console.log("ENVIANDO:", data);
 
-            // coloque sua request aqui
-            // await fetch("/api/transactions", { ... })
+            const token = user?.token
+            const { amount, category, date, type, description } = values
 
+            //enviando para api
+            const response = await fetch("api/newTransition",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ amount, category, date, type, description })
+                }
+            )
+
+            //resposta da api
+            const data = await response.json();
+
+            //validando se deu erro na resposta da api
+            if (!response.ok) {
+                throw new Error(data.error);
+            }
+
+            toast.success("Nova transação adicionadan ao seu Dashboard!");
+
+        } catch(error: any) {
+            console.error(error)
+
+            toast.error(error.message || "Erro durante o lançamento da transação. Tente novamente")
         } finally {
             setIsLoading(false);
+            form.reset()
+
         }
     };
 
@@ -197,6 +229,7 @@ const NewTransitionForm = () => {
                         <Button type="submit" className="w-full" disabled={isLoading}>
                             {isLoading ? "Salvando..." : "Adicionar Transação"}
                         </Button>
+                        {isLoading && <Loading />}
                     </form>
                 </Form>
             </CardContent>
