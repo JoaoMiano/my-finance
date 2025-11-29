@@ -1,6 +1,5 @@
 import Dashboard from "@/components/layout/Dashboard";
 import NewTransitionForm from "@/components/layout/NewTransitionForm";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 
 
@@ -21,7 +20,7 @@ const App = () => {
             <NewTransitionForm />
           </TabsContent>
 
-          <TabsContent value="history">
+          <TabsContent value="dashboard">
             <Dashboard />
           </TabsContent>
         </Tabs>
