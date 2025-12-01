@@ -1,14 +1,21 @@
-export const monythRange = () => {
-    // Data atual
-    const date = new Date();
-    const currentMonth = date.getMonth(); // 0 a 11
-    const currentYear = date.getFullYear();
+//formatando a data para string
+const formatDate = (date: Date) => {
+  return date.toISOString().slice(0, 10);
+};
 
-    // Intervalo do mês atual
-    const startOfMonth = new Date(currentYear, currentMonth, 1, 0, 0, 0, 0);
-    const endOfMonth = new Date(currentYear, currentMonth + 1, 0, 23, 59, 59, 999);
-    return { startOfMonth, endOfMonth };
-}
+export const monythRange = () => {
+  const date = new Date();
+  const currentMonth = date.getMonth();
+  const currentYear = date.getFullYear();
+
+  const startOfMonth = new Date(currentYear, currentMonth, 1);
+  const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
+
+  return {
+    startOfMonth: formatDate(startOfMonth),
+    endOfMonth: formatDate(endOfMonth),
+  };
+};
 
 export const getMonthsRangeOfYear = () => {
     const year = new Date().getFullYear();
@@ -21,8 +28,8 @@ export const getMonthsRangeOfYear = () => {
 
         months.push({
             month: month + 1,
-            start,
-            end,
+            start: formatDate(start),
+            end: formatDate(end),
         });
     }
 

@@ -1,6 +1,3 @@
-
-import { BanknoteArrowUp } from "lucide-react";
-import CardOverview from "../CardOverview";
 import SectionOverview from "../SectionOverview";
 
 

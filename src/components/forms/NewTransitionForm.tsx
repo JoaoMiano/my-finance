@@ -51,7 +51,6 @@ const NewTransitionForm = () => {
         resolver: zodResolver(TransactionSchema),
         defaultValues: {
             type: "INCOME",
-            amount: 0,
             category: "SALARIO",
             date: new Date().toISOString().split("T")[0],
             description: "",
@@ -66,7 +65,9 @@ const NewTransitionForm = () => {
             const token = user?.token
             const { amount, category, date, type, description } = values
 
+            console.log(date)
             //enviando para api
+            console.log(token)
             const response = await fetch("api/newTransition",
                 {
                     method: "POST",
@@ -77,7 +78,7 @@ const NewTransitionForm = () => {
                     body: JSON.stringify({ amount, category, date, type, description })
                 }
             )
-
+            
             //resposta da api
             const data = await response.json();
 

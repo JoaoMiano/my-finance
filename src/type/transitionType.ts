@@ -2,7 +2,7 @@ export type TransactionType = {
         type: "INCOME" | "EXPENSE",
         amount: number,
         category: string,
-        date: Date, 
+        date: string, 
         description?: string,
         userId: string,
 }

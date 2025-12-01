@@ -1,5 +1,5 @@
 import Dashboard from "@/components/layout/Dashboard";
-import NewTransitionForm from "@/components/layout/NewTransitionForm";
+import NewTransitionForm from "@/components/forms/NewTransitionForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 
 

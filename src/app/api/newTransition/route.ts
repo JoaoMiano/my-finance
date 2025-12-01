@@ -29,14 +29,15 @@ export const POST = async (req: Request) => {
             }), { status: 400 });
         }
 
-        const { amount, type, description, category } = result.data; //dados validados
+        const { amount, type, description, category, date } = result.data; //dados validados
 
         //cria a nova transação
+        console.log("data: "+ result.data.date)
         const newTransaction = await prismaService.createTransaction({
             type,
             amount,
             category,
-            date: new Date(result.data.date),
+            date,
             description,
             userId,
         });
@@ -45,6 +46,7 @@ export const POST = async (req: Request) => {
 
 
     } catch (error) {
+        console.log("ERRO:"+ error)
         return new Response(JSON.stringify({
             error: "Erro de autenticação",
         }), { status: 401 });

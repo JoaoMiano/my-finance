@@ -1,8 +1,8 @@
 import Logo from "@/components/logo";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { RegisterForm } from "@/components/layout/RegisterForm";
-import { LoginForm } from "@/components/layout/LoginForm";
+import { RegisterForm } from "@/components/forms/RegisterForm";
+import { LoginForm } from "@/components/forms/LoginForm";
 
 export const App = () => {
   return (
