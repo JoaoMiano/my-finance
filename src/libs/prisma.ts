@@ -1,20 +1,15 @@
-import "dotenv/config";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "@prisma/client/edge";
-import { Pool } from "pg";
+import { PrismaClient } from "@prisma/client";
 
-const connectionString = process.env.DATABASE_URL!;
+declare global {
+  // Evita recriar instâncias no ambiente de desenvolvimento
+  var prisma: PrismaClient | undefined;
+}
 
-// cria o pool a partir da connection string
-const pool = new Pool({
-  connectionString,
-});
+// Usa instância global em dev e cria uma nova em produção
+export const prisma =
+  global.prisma ??
+  new PrismaClient({
+    log: ["query", "error", "warn"],
+  });
 
-// passa o pool para o adapter
-const adapter = new PrismaPg(pool);
-
-const prisma = new PrismaClient({
-  adapter,
-});
-
-export default prisma;
+if (process.env.NODE_ENV !== "production") global.prisma = prisma;
