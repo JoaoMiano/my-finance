@@ -33,23 +33,23 @@ export function middleware(request: NextRequest) {
     }
 
     //validando se o token ainda esta valido
-    // if (token) {
-    //     const decoded = jwt.decode(token) as { exp?: number }
+    if (token) {
+        const decoded = jwt.decode(token) as { exp?: number }
 
-    //     if (decoded?.exp && Date.now() >= decoded.exp * 1000) {
-    //         const redirectUrl = request.nextUrl.clone()
-    //         redirectUrl.pathname = redirectWhenNotAutenticatedRoute
+        if (decoded?.exp && Date.now() >= decoded.exp * 1000) {
+            const redirectUrl = request.nextUrl.clone()
+            redirectUrl.pathname = redirectWhenNotAutenticatedRoute
 
-    //         const res = NextResponse.redirect(redirectUrl)
-    //         // Remover o cookie manualmente
-    //         res.cookies.set('token', '', {
-    //             maxAge: 0,
-    //             path: '/',
-    //         })
+            const res = NextResponse.redirect(redirectUrl)
+            // Remover o cookie manualmente
+            res.cookies.set('token', '', {
+                maxAge: 0,
+                path: '/',
+            })
 
-    //         return res
-    //     }
-    // }
+            return res
+        }
+    }
 
 
     //autenticado tentando acessar rota publica
