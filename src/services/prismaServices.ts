@@ -1,5 +1,5 @@
 import { getMonthsRangeOfYear, monythRange } from "@/helppers/monthRange";
-import { prisma } from "@/libs/prisma"
+import  prisma  from "@/libs/prisma"
 import { TransactionType } from "@/type/transitionType";
 import bcrypt from "bcryptjs";
 
