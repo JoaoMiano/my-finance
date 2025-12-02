@@ -21,14 +21,6 @@ const SectionCharts = () => {
                     <ChartOverview />
                 </CardContent>
             </Card>
-            <Card className="col-span-2">
-                <CardHeader>
-                    <CardTitle>Gastos por Categoria</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <ChartExpensesByCategory />
-                </CardContent>
-            </Card>
         </section>
     )
 }

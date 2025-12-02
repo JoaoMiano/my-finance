@@ -75,7 +75,18 @@ const ChartOverview = () => {
     loadData()
   }, [token])
 
-  if (loading) return <p>Carregando gráfico...</p>
+  if (loading) {
+    return (
+      <div className="w-full h-[300px] flex flex-col gap-4 items-center justify-center">
+        <div className="rounded-full bg-muted animate-pulse w-32 h-32" />
+        <div className="flex flex-col gap-2 w-full max-w-xs">
+          <div className="h-4 bg-muted rounded animate-pulse" />
+          <div className="h-4 bg-muted rounded animate-pulse w-3/4" />
+          <div className="h-4 bg-muted rounded animate-pulse w-1/2" />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <ChartContainer config={chartConfig}>
