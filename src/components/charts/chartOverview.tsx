@@ -1,6 +1,6 @@
 "use client"
 
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, Cell, XAxis } from "recharts"
 import {
   ChartConfig,
   ChartContainer,
@@ -60,6 +60,7 @@ const ChartOverview = () => {
           { label: "Balance", value: json.overview.balance },
         ].map((item) => ({
           ...item,
+          // @ts-ignore
           fill: chartConfig[item.label].color, // adiciona a cor do chartConfig
         }))
 
@@ -100,10 +101,15 @@ const ChartOverview = () => {
           dataKey="label"
           tickLine={false}
           tickMargin={10}
+          // @ts-ignore
           tickFormatter={(value) => chartConfig[value].label} // mostra label traduzida
         />
         <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-        <Bar dataKey="value" radius={4} fill={({ label }) => chartConfig[label].color} />
+        <Bar dataKey="value" radius={4} >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={entry.fill} />
+          ))}
+        </Bar>
       </BarChart>
     </ChartContainer>
   )
