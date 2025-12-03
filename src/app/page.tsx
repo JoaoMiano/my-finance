@@ -17,8 +17,8 @@ export const App = () => {
       />
 
       {/* centro da tela */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full gap-6">
-        <Logo size="md" variant="vertical"/>
+      <div className="relative z-10 flex flex-col items-center justify-center h-full gap-3 mt-8">
+        <Logo size="lg" variant="vertical"/>
 
         <Card className="w-full max-w-sm backdrop-blur  bg-white/80 shadow-xl">
           <CardHeader className="text-center">
