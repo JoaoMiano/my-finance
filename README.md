@@ -39,7 +39,7 @@ Use o seguinte usuário previamente cadastrado:
 
 Esse usuário já contém dados cadastrados para facilitar a visualização dos gráficos e tabelas.
 
-**Criar um novo usuário (caso deseje testar do zero)**
+**2. Criar um novo usuário (caso deseje testar do zero)**
 Acesse a página inicial do projeto
 
 Crie uma conta
