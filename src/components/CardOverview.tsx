@@ -42,7 +42,7 @@ const CardOverview = (data: Props) => {
 
       <CardContent>
         <p className={`text-2xl font-bold ${colors.text}`}>
-          R$ {data.value}
+          R$ {data.value.toFixed(2)}
         </p>
       </CardContent>
     </Card>
