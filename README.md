@@ -34,8 +34,8 @@ Existem duas formas de testar o sistema:
 
 Use o seguinte usuário previamente cadastrado:
 
-- Email: professor@teste.com
-- Senha: 12345678
+- Email: usuario@teste.com
+- Senha: Senhateste
 
 Esse usuário já contém dados cadastrados para facilitar a visualização dos gráficos e tabelas.
 
